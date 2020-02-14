@@ -1,5 +1,6 @@
 System Usage Analyzer
 =========
+Reads CPU Usage and Memory usage of the system every 10 seconds to create a average system usage view.
 
 
 Requirements
