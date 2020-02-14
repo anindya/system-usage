@@ -20,7 +20,8 @@ function analytics(req,resp){
     const ANALYTICS = "analytics";
     const CPU_THRESHOLD = 20.0;
     const MEMORY_THRESHOLD = 73.50;
-    const ANALYTICS_TIME = 600; //in seconds, anayltics calculated for t-600 to t.
+    const ANALYTICS_TIME = 600; //in seconds, anayltics calculated for t-600 to t, t is the current time.
+    COMPETE_HISTORY = true;
 
     ClearBlade.init({ request : req});
     ClearBlade.setUser("test@test.com", "qwer1234");
@@ -31,7 +32,9 @@ function analytics(req,resp){
         time = Math.floor(Date.now() / 1000);
         var collection = ClearBlade.Collection( {collectionName: COLLECTION } );
         var query = ClearBlade.Query();
-        query.greaterThan(TIMESTAMP, time - ANALYTICS_TIME);
+        if (!COMPETE_HISTORY) {
+            query.greaterThan(TIMESTAMP, time - ANALYTICS_TIME);
+        }
         query.setPage(0, 0);
         collection.fetch(query, processMessage);
     }
@@ -81,7 +84,7 @@ function analytics(req,resp){
         usageMetrics["avg_mem"] = total_mem/len;
         usageMetrics["max_cpu_usage_data"] = max_cpu_obj;
         usageMetrics["max_mem_usage_data"] = max_mem_obj;
-        usageMetrics["high_usage"] = JSON.stringify(peakUse);
+        usageMetrics["high_usage"] = peakUse;
 
         return usageMetrics;
         

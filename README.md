@@ -1,7 +1,8 @@
 System Usage Analyzer
 =========
 Reads CPU Usage and Memory usage of the system every 10 seconds to create a average system usage view.
-
+To analyse over the last hour, set `COMPETE_HISTORY = false` in  `analytics.js` (line 24).
+To change the duration of analysis, change value of variable `ANALYTICS_TIME` in `analytics.js` (line 23).
 
 Requirements
 --------------
