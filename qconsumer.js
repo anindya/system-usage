@@ -19,15 +19,14 @@ function qconsumer(req,resp){
     ClearBlade.init({ request : req});
     ClearBlade.setUser("test@test.com", "qwer1234");
     
-    var messaging = ClearBlade.Messaging();
+    var messaging = ClearBlade.Messaging(); //Single use variable kept for possible extensions.
     
     messaging.getAndDeleteMessageHistory(TOPIC, 0, null, null, null, processMessage);
     
     resp.success("Success");
     function processMessage(err, data) {
         for (i = 0; i < data.length; i++) {
-            var message = JSON.parse(data[i].payload);
-            saveToCollection(message);    
+            saveToCollection(JSON.parse(data[i].payload));    //Remove single use variable
         }
     }
 
